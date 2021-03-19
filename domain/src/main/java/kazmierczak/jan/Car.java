@@ -30,4 +30,13 @@ public class Car {
     public boolean hasMileageGreaterThan(int mileage) {
         return this.mileage > mileage;
     }
+
+    @Override
+    public String toString() {
+        return "\nModel: " + model +
+                " Price: " + price +
+                " Color: " + color +
+                " Milleage: " + mileage +
+                " Components :" + components + "\n";
+    }
 }
