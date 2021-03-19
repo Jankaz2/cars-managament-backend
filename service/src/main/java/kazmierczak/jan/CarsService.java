@@ -2,9 +2,12 @@ package kazmierczak.jan;
 
 import kazmierczak.jan.converters.CarJsonConverter;
 import kazmierczak.jan.exception.CarsServiceException;
+import kazmierczak.jan.types.CarStatistics;
 import kazmierczak.jan.types.Color;
 import kazmierczak.jan.types.SortItem;
+import kazmierczak.jan.types.Statistics;
 import kazmierczak.jan.validator.Validator;
+import org.eclipse.collections.impl.collector.Collectors2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
@@ -91,5 +94,46 @@ public class CarsService {
                 .stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
                 .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::max, LinkedHashMap::new));
+    }
+
+    /**
+     * @return map where the key is model name and value is
+     * the most expensive car of this model
+     */
+    public Map<String, List<Car>> getModelsWithMostExpensiveCars() {
+        return cars
+                .stream()
+                .collect(Collectors.groupingBy(
+                        CarUtils.toModel,
+                        Collectors.collectingAndThen(
+                                Collectors.groupingBy(CarUtils.toPrice),
+                                result -> result
+                                        .entrySet()
+                                        .stream()
+                                        .max(Map.Entry.comparingByKey())
+                                        .orElseThrow(() -> new CarsServiceException("Canot find the most expensive car"))
+                                        .getValue()
+                        )
+                ));
+    }
+
+    /**
+     * @return statistics with average value, minimum value and maximum value
+     * for price and mileage
+     */
+    public CarStatistics getStats() {
+        var priceStats = cars
+                .stream()
+                .collect(Collectors2.summarizingBigDecimal(CarUtils.toPriceStats));
+
+        var milleageStats = cars
+                .stream()
+                .collect(Collectors.summarizingInt(CarUtils.toMileage));
+
+        return CarStatistics
+                .builder()
+                .priceStatistics(Statistics.fromBigDecimalSummaryStatistics(priceStats))
+                .mileageStatistics(Statistics.fromIntSummaryStatistics(milleageStats))
+                .build();
     }
 }
