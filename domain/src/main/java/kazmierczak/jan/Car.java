@@ -7,7 +7,9 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import java.math.BigDecimal;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -39,6 +41,34 @@ public class Car {
      */
     public boolean hasPriceGreaterOrEqualTo(BigDecimal price) {
         return this.price.compareTo(price) >= 0;
+    }
+
+    /**
+     *
+     * @return car object with sorted components list
+     */
+    public Car withSortedComponents() {
+        return Car
+                .builder()
+                .model(model)
+                .color(color)
+                .price(price)
+                .mileage(mileage)
+                .components(components
+                        .stream()
+                        .sorted(Comparator.naturalOrder())
+                        .collect(Collectors.toList()))
+                .build();
+    }
+
+    /**
+     *
+     * @param component - component we check which cars got this
+     * @return return true if components list of car we are checking
+     *         contains component param, otherwise return false
+     */
+    public boolean hasComponent(String component) {
+        return components.contains(component);
     }
 
     @Override

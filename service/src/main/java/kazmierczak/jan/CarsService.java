@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
 import java.util.*;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Service
@@ -149,5 +150,35 @@ public class CarsService {
                 .stream()
                 .filter(car -> car.hasPriceGreaterOrEqualTo(maxPrice))
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * @return list of cars with sorted components
+     */
+    public List<Car> getCarsWithSortedComponents() {
+        return cars
+                .stream()
+                .map(Car::withSortedComponents)
+                .collect(Collectors.toList());
+    }
+
+    /**
+     * @return map where the key is name of component
+     * and value is list of car which got this component.
+     * Pairs are descending sorted by length of value
+     */
+    public Map<String, List<Car>> componentWithCarsList() {
+        return cars
+                .stream()
+                .flatMap(car -> CarUtils.toComponents.apply(car).stream())
+                .distinct()
+                .collect(Collectors.toMap(
+                        Function.identity(),
+                        component -> cars
+                                .stream()
+                                .filter(car -> car
+                                        .hasComponent(component))
+                                .collect(Collectors.toList())
+                ));
     }
 }

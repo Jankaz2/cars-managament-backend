@@ -4,6 +4,7 @@ import kazmierczak.jan.types.Color;
 
 import java.math.BigDecimal;
 import java.util.Comparator;
+import java.util.List;
 import java.util.function.Function;
 import java.util.function.ToIntFunction;
 
@@ -36,6 +37,10 @@ public interface CarUtils {
      * method to map car object to price of this car
      */
     Function<Car, BigDecimal> toPrice = car -> car.price;
+    /**
+     * method to map car object to components list of this car
+     */
+    Function<Car, List<String>> toComponents = car -> car.components;
     /**
      * method to map car object to mileage of this car
      */
