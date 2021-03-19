@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
+import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -180,5 +181,29 @@ public class CarsService {
                                         .hasComponent(component))
                                 .collect(Collectors.toList())
                 ));
+    }
+
+    /**
+     * @param fromPrice represents the minimum value from range we are looking for cars
+     * @param toPrice   represents the maximum value from range we are looking for cars
+     * @return list of cars which price is in range between fromPrice and toPrice
+     */
+    public List<Car> priceBetweenAandB(BigDecimal fromPrice, BigDecimal toPrice) {
+        if (fromPrice == null) {
+            throw new CarsServiceException("From price is null");
+        }
+        if (toPrice == null) {
+            throw new CarsServiceException("To price is null");
+        }
+        if (fromPrice.compareTo(toPrice) > 0) {
+            throw new CarsServiceException("Incorrect price range");
+        }
+        return cars
+                .stream()
+                .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
+                .collect(Collectors.toList())
+                .stream()
+                .sorted(CarUtils.compareByModel)
+                .collect(Collectors.toList());
     }
 }

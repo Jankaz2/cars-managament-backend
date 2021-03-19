@@ -71,6 +71,17 @@ public class Car {
         return components.contains(component);
     }
 
+    /**
+     *
+     * @param fromPrice - minimum price from range
+     * @param toPrice - maximum price from range
+     * @return true if price of car we are checking is between fromPrice param
+     *          and toPrice param
+     */
+    public boolean hasPriceInRange(BigDecimal fromPrice, BigDecimal toPrice) {
+        return price.compareTo(fromPrice) >= 0 && price.compareTo(toPrice) <= 0;
+    }
+
     @Override
     public String toString() {
         return "\nModel: " + model +
