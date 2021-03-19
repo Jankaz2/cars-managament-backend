@@ -31,6 +31,16 @@ public class Car {
         return this.mileage > mileage;
     }
 
+    /**
+     *
+     * @param price we will compare to
+     * @return true if car we are checking has greater or equal price
+     * to price from param, otherwise return false
+     */
+    public boolean hasPriceGreaterOrEqualTo(BigDecimal price) {
+        return this.price.compareTo(price) >= 0;
+    }
+
     @Override
     public String toString() {
         return "\nModel: " + model +

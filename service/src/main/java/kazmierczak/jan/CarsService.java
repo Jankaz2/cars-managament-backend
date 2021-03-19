@@ -12,10 +12,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.PostConstruct;
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -135,5 +132,22 @@ public class CarsService {
                 .priceStatistics(Statistics.fromBigDecimalSummaryStatistics(priceStats))
                 .mileageStatistics(Statistics.fromIntSummaryStatistics(milleageStats))
                 .build();
+    }
+
+    /**
+     * @return the most expensive car or list of the most
+     * expensive cars if there are more than one
+     * most expensive cars
+     */
+    public List<Car> theMostExpensiveCar() {
+        var maxPrice = cars
+                .stream()
+                .map(CarUtils.toPrice)
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+        return cars
+                .stream()
+                .filter(car -> car.hasPriceGreaterOrEqualTo(maxPrice))
+                .collect(Collectors.toList());
     }
 }
