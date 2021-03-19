@@ -19,4 +19,15 @@ public class Car {
     Color color;
     int mileage;
     List<String> components;
+
+    /**
+     *
+     * @param mileage - mileage we chec whether car got greater mileage than this
+     * @return true if mileage from argument is less than
+     *         mileage of car we are checking otherwise return
+     *         false
+     */
+    public boolean hasMileageGreaterThan(int mileage) {
+        return this.mileage > mileage;
+    }
 }
