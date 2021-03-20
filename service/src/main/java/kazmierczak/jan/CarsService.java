@@ -188,7 +188,7 @@ public class CarsService {
      * @param toPrice   represents the maximum value from range we are looking for cars
      * @return list of cars which price is in range between fromPrice and toPrice
      */
-    public List<Car> priceBetweenAandB(BigDecimal fromPrice, BigDecimal toPrice) {
+    public List<Car> inPriceRange(BigDecimal fromPrice, BigDecimal toPrice) {
         if (fromPrice == null) {
             throw new CarsServiceException("From price is null");
         }
