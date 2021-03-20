@@ -5,10 +5,10 @@
     <parent>
         <artifactId>cars-menagament</artifactId>
         <groupId>kazmierczak.jan</groupId>
-        <version>1.0</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-
+    <packaging>jar</packaging>
     <artifactId>ui</artifactId>
 
     <properties>
@@ -16,4 +16,11 @@
         <maven.compiler.target>15</maven.compiler.target>
     </properties>
 
+    <dependencies>
+        <dependency>
+            <groupId>kazmierczak.jan</groupId>
+            <artifactId>service</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+    </dependencies>
 </project>

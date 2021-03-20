@@ -88,6 +88,6 @@ public class Car {
                 " Price: " + price +
                 " Color: " + color +
                 " Milleage: " + mileage +
-                " Components :" + components + "\n";
+                " Components :" + components;
     }
 }
