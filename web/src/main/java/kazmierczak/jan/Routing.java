@@ -78,7 +78,7 @@ public class Routing {
                         (request, response) -> {
                             response.header("Content-Type", "application/json;charset=utf-8");
                             var mileage = request.params(":mileage");
-                            return carsService.getCarsWithMileageGreaterThan(Integer.parseInt(mileage));
+                            return carsService.withMileageGreaterThan(Integer.parseInt(mileage));
                         }, new JsonTransformer()
                 );
             });
