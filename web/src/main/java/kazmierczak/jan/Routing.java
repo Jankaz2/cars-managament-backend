@@ -92,6 +92,24 @@ public class Routing {
                         }, new JsonTransformer()
                 );
             });
+
+            path("/components", () -> {
+                get("/sort",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            return carsService.componentWithCarsList();
+                        }, new JsonTransformer()
+                );
+            });
+
+            path("/statistics", () -> {
+                get("",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            return carsService.getStats();
+                        }, new JsonTransformer()
+                );
+            });
         });
     }
 }
