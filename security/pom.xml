@@ -5,7 +5,7 @@
     <parent>
         <artifactId>cars-menagament</artifactId>
         <groupId>kazmierczak.jan</groupId>
-        <version>1.0</version>
+        <version>${revision}</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
     <packaging>jar</packaging>
@@ -14,29 +14,32 @@
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <jjwt.api.version>0.11.2</jjwt.api.version>
+        <jjwt.impl.version>0.11.2</jjwt.impl.version>
+        <jjwt.jackson.version>0.11.2</jjwt.jackson.version>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>kazmierczak.jan</groupId>
             <artifactId>service</artifactId>
-            <version>1.0</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-api</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.api.version}</version>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-impl</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.impl.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>io.jsonwebtoken</groupId>
             <artifactId>jjwt-jackson</artifactId>
-            <version>0.11.2</version>
+            <version>${jjwt.jackson.version}</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
