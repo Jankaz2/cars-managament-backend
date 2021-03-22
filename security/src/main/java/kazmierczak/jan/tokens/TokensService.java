@@ -1,4 +1,4 @@
-package kazmierczak.tokens;
+package kazmierczak.jan.tokens;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
