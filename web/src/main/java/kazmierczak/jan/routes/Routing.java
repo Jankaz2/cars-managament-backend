@@ -1,7 +1,8 @@
-package kazmierczak.jan;
+package kazmierczak.jan.routes;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import kazmierczak.jan.CarsService;
 import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.filter.CorsFilter;
 import kazmierczak.jan.transformer.JsonTransformer;
