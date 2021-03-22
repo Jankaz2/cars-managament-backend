@@ -3,6 +3,7 @@ package kazmierczak.jan;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import kazmierczak.jan.config.AppSpringConfig;
+import kazmierczak.jan.filter.CorsFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
@@ -17,5 +18,7 @@ public class Routing {
         context.register(AppSpringConfig.class);
         context.refresh();
         carsService = context.getBean("carsService", CarsService.class);
+        var corsFilter = new CorsFilter();
+        corsFilter.apply();
     }
 }
