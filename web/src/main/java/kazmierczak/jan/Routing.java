@@ -9,6 +9,8 @@ import kazmierczak.jan.types.SortItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.math.BigDecimal;
+
 import static spark.Spark.*;
 
 @RequiredArgsConstructor
@@ -40,6 +42,24 @@ public class Routing {
                             var sortItem = request.params(":item");
                             var order = request.params(":order");
                             return carsService.sort(SortItem.valueOf(sortItem), Boolean.parseBoolean(order));
+                        }, new JsonTransformer()
+                );
+            });
+
+            path("/price", () -> {
+                get("/max",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            return carsService.theMostExpensiveCar();
+                        }, new JsonTransformer()
+                );
+
+                get("/:min/:max",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            var min = request.params(":min");
+                            var max = request.params(":max");
+                            return carsService.inPriceRange(new BigDecimal(min), new BigDecimal(max));
                         }, new JsonTransformer()
                 );
             });
