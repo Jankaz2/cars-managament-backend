@@ -63,6 +63,15 @@ public class Routing {
                         }, new JsonTransformer()
                 );
             });
+
+            path("/model", () -> {
+                get("/most_expensive",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            return carsService.getModelsWithMostExpensiveCars();
+                        }, new JsonTransformer()
+                );
+            });
         });
     }
 }
