@@ -72,6 +72,26 @@ public class Routing {
                         }, new JsonTransformer()
                 );
             });
+
+            path("/mileage", () -> {
+                get("/:mileage",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            var mileage = request.params(":mileage");
+                            return carsService.getCarsWithMileageGreaterThan(Integer.parseInt(mileage));
+                        }, new JsonTransformer()
+                );
+            });
+
+
+            path("/color", () -> {
+                get("/group",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            return carsService.countCarsByColor();
+                        }, new JsonTransformer()
+                );
+            });
         });
     }
 }
