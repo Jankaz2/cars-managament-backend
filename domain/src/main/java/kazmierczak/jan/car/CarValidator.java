@@ -35,7 +35,7 @@ public class CarValidator implements Validator<Car> {
 
         var color = car.color;
         if(hasIncorrectColor(color)) {
-            errors.put("color", "color value must not be null");
+            errors.put("color", "must not be null");
         }
 
         var components = car.components;
