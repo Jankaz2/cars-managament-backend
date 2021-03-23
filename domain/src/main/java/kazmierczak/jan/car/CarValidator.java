@@ -1,7 +1,7 @@
-package kazmierczak.jan;
+package kazmierczak.jan.car;
 
 import kazmierczak.jan.types.Color;
-import kazmierczak.jan.validator.Validator;
+import kazmierczak.jan.config.validator.Validator;
 
 import java.math.BigDecimal;
 import java.util.HashMap;

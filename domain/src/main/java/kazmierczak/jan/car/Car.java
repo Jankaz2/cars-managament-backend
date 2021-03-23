@@ -1,4 +1,4 @@
-package kazmierczak.jan;
+package kazmierczak.jan.car;
 
 import kazmierczak.jan.types.Color;
 import lombok.AllArgsConstructor;
