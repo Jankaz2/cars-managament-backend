@@ -1,6 +1,6 @@
 package kazmierczak.jan;
 
-import kazmierczak.jan.converters.CarJsonConverter;
+import kazmierczak.jan.converter.CarJsonConverter;
 import kazmierczak.jan.exception.CarsServiceException;
 import kazmierczak.jan.types.CarStatistics;
 import kazmierczak.jan.types.Color;

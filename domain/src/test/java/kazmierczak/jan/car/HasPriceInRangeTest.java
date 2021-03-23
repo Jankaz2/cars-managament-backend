@@ -1,5 +1,6 @@
-package kazmierczak.jan;
+package kazmierczak.jan.car;
 
+import kazmierczak.jan.Car;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
