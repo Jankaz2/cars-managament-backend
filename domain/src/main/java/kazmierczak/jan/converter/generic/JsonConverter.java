@@ -1,4 +1,4 @@
-package kazmierczak.jan.converters.generic;
+package kazmierczak.jan.converter.generic;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

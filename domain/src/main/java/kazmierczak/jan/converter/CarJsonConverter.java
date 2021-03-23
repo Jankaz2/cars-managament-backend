@@ -1,7 +1,7 @@
-package kazmierczak.jan.converters;
+package kazmierczak.jan.converter;
 
 import kazmierczak.jan.Car;
-import kazmierczak.jan.converters.generic.JsonConverter;
+import kazmierczak.jan.converter.generic.JsonConverter;
 
 import java.util.List;
 
