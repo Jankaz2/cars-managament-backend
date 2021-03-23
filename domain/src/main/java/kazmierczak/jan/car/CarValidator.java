@@ -33,6 +33,11 @@ public class CarValidator implements Validator<Car> {
             errors.put("price", "must have non negative value");
         }
 
+        var color = car.color;
+        if(hasIncorrectColor(color)) {
+            errors.put("color", "color value must not be null");
+        }
+
         var components = car.components;
         if (hasIncorrectCompoentsCollection(components)) {
             errors.put("components", "must have all elements with upper case letters or white spaces");
