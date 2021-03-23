@@ -1,4 +1,4 @@
-package kazmierczak.jan.exception;
+package kazmierczak.jan.config.converter.exception;
 
 public class SecurityException extends RuntimeException {
     public SecurityException(String message) {

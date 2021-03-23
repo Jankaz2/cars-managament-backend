@@ -1,8 +1,8 @@
-package kazmierczak.jan.converter.generic;
+package kazmierczak.jan.config.converter.generic;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import kazmierczak.jan.exception.JsonConverterException;
+import kazmierczak.jan.config.converter.exception.JsonConverterException;
 
 import java.io.FileReader;
 import java.io.FileWriter;

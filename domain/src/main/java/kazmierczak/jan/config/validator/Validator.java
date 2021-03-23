@@ -1,7 +1,7 @@
-package kazmierczak.jan.validator;
+package kazmierczak.jan.config.validator;
 
 
-import kazmierczak.jan.validator.exception.ValidatorException;
+import kazmierczak.jan.config.validator.exception.ValidatorException;
 
 import java.util.Map;
 import java.util.stream.Collectors;
