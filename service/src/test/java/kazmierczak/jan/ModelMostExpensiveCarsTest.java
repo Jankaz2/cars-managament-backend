@@ -1,5 +1,6 @@
 package kazmierczak.jan;
 
+import kazmierczak.jan.car.Car;
 import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.types.Color;
 import org.junit.jupiter.api.BeforeEach;

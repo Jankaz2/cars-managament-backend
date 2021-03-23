@@ -1,5 +1,6 @@
 package kazmierczak.jan;
 
+import kazmierczak.jan.car.CarUtils;
 import kazmierczak.jan.config.AppSpringConfig;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

@@ -1,7 +1,8 @@
 package kazmierczak.jan;
 
+import kazmierczak.jan.car.CarUtils;
 import kazmierczak.jan.config.AppSpringConfig;
-import kazmierczak.jan.exception.CarsServiceException;
+import kazmierczak.jan.config.converter.exception.CarsServiceException;
 import kazmierczak.jan.types.SortItem;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
