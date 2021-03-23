@@ -1,0 +1,12 @@
+[
+  {
+    "model": "FORD",
+    "price": 120000,
+    "color": "RED",
+    "mileage": 150000,
+    "components": [
+      "AIR CONDITIONING",
+      "VOICE SERVICE"
+    ]
+  }
+]
