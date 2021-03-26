@@ -5,15 +5,16 @@
     <parent>
         <artifactId>cars-menagament</artifactId>
         <groupId>kazmierczak.jan</groupId>
-        <version>${revision}</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
-    <packaging>jar</packaging>
-    <artifactId>ui</artifactId>
+
+    <artifactId>web</artifactId>
 
     <properties>
         <maven.compiler.source>15</maven.compiler.source>
         <maven.compiler.target>15</maven.compiler.target>
+        <spark.version>2.9.3</spark.version>
     </properties>
 
     <dependencies>
@@ -21,6 +22,19 @@
             <groupId>kazmierczak.jan</groupId>
             <artifactId>service</artifactId>
             <version>${project.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.sparkjava</groupId>
+            <artifactId>spark-core</artifactId>
+            <version>${spark.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
         </dependency>
     </dependencies>
 </project>
