@@ -32,7 +32,7 @@ public class Statistics {
         return Statistics
                 .builder()
                 .min(BigDecimal.valueOf(stats.getMin()))
-                .avg(BigDecimal.valueOf(stats.getAverage()).setScale(2, RoundingMode.UP)) // zamienic na napis i sofrmatuje np do dwoch miejsc po przecinku
+                .avg(BigDecimal.valueOf(stats.getAverage()).setScale(2, RoundingMode.UP))
                 .max(BigDecimal.valueOf(stats.getMax()))
                 .build();
     }
