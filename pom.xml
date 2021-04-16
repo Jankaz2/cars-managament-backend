@@ -5,15 +5,16 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>kazmierczak.jan</groupId>
-    <artifactId>cars-menagament</artifactId>
+    <artifactId>cars-management</artifactId>
     <version>${revision}</version>
-    <packaging>pom</packaging>
     <modules>
         <module>domain</module>
         <module>service</module>
         <module>web</module>
         <module>security</module>
     </modules>
+    <packaging>pom</packaging>
+    <name>cars-management</name>
 
     <properties>
         <revision>1.0</revision>
@@ -192,7 +193,7 @@
                     <configuration>
                         <archive>
                             <manifest>
-                                <mainClass>com.app.web.App</mainClass>
+                                <mainClass>kazmierczak.jan.App</mainClass>
                             </manifest>
                         </archive>
                         <descriptorRefs>
