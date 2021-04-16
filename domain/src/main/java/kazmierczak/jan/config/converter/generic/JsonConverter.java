@@ -31,7 +31,6 @@ public abstract class JsonConverter<T> {
         try (FileReader fileReader = new FileReader(jsonFilename)) {
             return Optional.of(gson.fromJson(fileReader, type));
         } catch (Exception e) {
-            e.printStackTrace();
             throw new JsonConverterException(e.getMessage());
         }
     }
