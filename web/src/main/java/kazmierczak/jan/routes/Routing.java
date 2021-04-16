@@ -1,16 +1,17 @@
 package kazmierczak.jan.routes;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import kazmierczak.jan.CarsService;
 import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.filter.CorsFilter;
 import kazmierczak.jan.transformer.JsonTransformer;
+import kazmierczak.jan.types.Color;
 import kazmierczak.jan.types.SortItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.math.BigDecimal;
+import java.util.Arrays;
+import java.util.stream.Collectors;
 
 import static spark.Spark.*;
 
@@ -19,7 +20,6 @@ public class Routing {
     private CarsService carsService;
 
     public void initRoutes() {
-        final Gson gson = new GsonBuilder().setPrettyPrinting().create();
         var context = new AnnotationConfigApplicationContext();
         context.getEnvironment().setActiveProfiles("dev");
         context.register(AppSpringConfig.class);
@@ -35,6 +35,27 @@ public class Routing {
                         return carsService.getAllCars();
                     }, new JsonTransformer()
             );
+
+            path("/filter", () -> {
+                get("/:model/:minPrice/:maxPrice/:color/:minMileage/:maxMileage/:components",
+                        (request, response) -> {
+                            response.header("Content-Type", "application/json;charset=utf-8");
+                            var model = request.params(":model");
+                            var minPrice = request.params(":minPrice");
+                            var maxPrice = request.params(":maxPrice");
+                            var color = request.params(":color");
+                            var minMileage = request.params(":minMileage");
+                            var maxMileage = request.params(":maxMileage");
+                            var components = request.params(":components");
+                            var componentsList = Arrays.stream(components.split("[,]")).collect(Collectors.toList());
+                            if (model == null || model.length() == 0) {
+                                model = "AUDI";
+                            }
+                            return carsService.filterCarsByManyParameters(model, new BigDecimal(minPrice), new BigDecimal(maxPrice),
+                                    Color.valueOf(color), Integer.parseInt(minMileage), Integer.parseInt(maxMileage), componentsList);
+                        }, new JsonTransformer()
+                );
+            });
 
             path("/sort", () -> {
                 get("/:item/:order",
@@ -84,7 +105,6 @@ public class Routing {
                 );
             });
 
-
             path("/color", () -> {
                 get("/group",
                         (request, response) -> {
@@ -98,7 +118,7 @@ public class Routing {
                 get("/sort",
                         (request, response) -> {
                             response.header("Content-Type", "application/json;charset=utf-8");
-                            return carsService.componentWithCarsList();
+                            return carsService.getCarsWithSortedComponents();
                         }, new JsonTransformer()
                 );
             });

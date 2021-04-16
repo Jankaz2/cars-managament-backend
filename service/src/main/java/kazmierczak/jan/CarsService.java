@@ -1,7 +1,6 @@
 package kazmierczak.jan;
 
 import kazmierczak.jan.car.Car;
-import kazmierczak.jan.car.CarUtils;
 import kazmierczak.jan.car.CarValidator;
 import kazmierczak.jan.config.converter.CarJsonConverter;
 import kazmierczak.jan.config.converter.exception.CarsServiceException;
@@ -18,7 +17,9 @@ import javax.annotation.PostConstruct;
 import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
-import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.*;
+import static kazmierczak.jan.car.CarUtils.*;
 
 @Service
 public class CarsService {
@@ -37,14 +38,13 @@ public class CarsService {
                 .stream()
                 .peek(car -> {
                     Validator.validate(new CarValidator(), car);
-                }).collect(Collectors.toList());
+                }).collect(toList());
     }
 
     /**
-     *
      * @return list of all cars
      */
-    public List<Car> getAllCars(){
+    public List<Car> getAllCars() {
         return cars;
     }
 
@@ -58,10 +58,10 @@ public class CarsService {
             throw new CarsServiceException("Sort item is not correct");
         }
         var sortedCars = switch (sortItem) {
-            case COLOR -> cars.stream().sorted(CarUtils.compareByColor).collect(Collectors.toList());
-            case MODEL -> cars.stream().sorted(CarUtils.compareByModel).collect(Collectors.toList());
-            case MILEAGE -> cars.stream().sorted(CarUtils.compareByMileage).collect(Collectors.toList());
-            default -> cars.stream().sorted(CarUtils.compareByPrice).collect(Collectors.toList());
+            case COLOR -> cars.stream().sorted(compareByColor).collect(toList());
+            case MODEL -> cars.stream().sorted(compareByModel).collect(toList());
+            case MILEAGE -> cars.stream().sorted(compareByMileage).collect(toList());
+            default -> cars.stream().sorted(compareByPrice).collect(toList());
         };
 
         if (descending) {
@@ -81,7 +81,7 @@ public class CarsService {
         return cars
                 .stream()
                 .filter(car -> car.hasMileageGreaterThan(mileage))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     /**
@@ -91,11 +91,11 @@ public class CarsService {
     public Map<Color, Long> countCarsByColor() {
         return cars
                 .stream()
-                .collect(Collectors.groupingBy(CarUtils.toColor, Collectors.counting()))
+                .collect(groupingBy(toColor, counting()))
                 .entrySet()
                 .stream()
                 .sorted((e1, e2) -> Long.compare(e2.getValue(), e1.getValue()))
-                .collect(Collectors.toMap(Map.Entry::getKey, Map.Entry::getValue, Long::max, LinkedHashMap::new));
+                .collect(toMap(Map.Entry::getKey, Map.Entry::getValue, Long::max, LinkedHashMap::new));
     }
 
     /**
@@ -105,10 +105,10 @@ public class CarsService {
     public Map<String, List<Car>> getModelsWithMostExpensiveCars() {
         return cars
                 .stream()
-                .collect(Collectors.groupingBy(
-                        CarUtils.toModel,
-                        Collectors.collectingAndThen(
-                                Collectors.groupingBy(CarUtils.toPrice),
+                .collect(groupingBy(
+                        toModel,
+                        collectingAndThen(
+                                groupingBy(toPrice),
                                 result -> result
                                         .entrySet()
                                         .stream()
@@ -126,11 +126,11 @@ public class CarsService {
     public CarStatistics getStats() {
         var priceStats = cars
                 .stream()
-                .collect(Collectors2.summarizingBigDecimal(CarUtils.toPriceStats));
+                .collect(Collectors2.summarizingBigDecimal(toPriceStats));
 
         var milleageStats = cars
                 .stream()
-                .collect(Collectors.summarizingInt(CarUtils.toMileage));
+                .collect(summarizingInt(toMileage));
 
         return CarStatistics
                 .builder()
@@ -147,13 +147,13 @@ public class CarsService {
     public List<Car> theMostExpensiveCar() {
         var maxPrice = cars
                 .stream()
-                .map(CarUtils.toPrice)
+                .map(toPrice)
                 .max(Comparator.naturalOrder())
                 .orElseThrow();
         return cars
                 .stream()
                 .filter(car -> car.hasPriceGreaterOrEqualTo(maxPrice))
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     /**
@@ -163,7 +163,7 @@ public class CarsService {
         return cars
                 .stream()
                 .map(Car::withSortedComponents)
-                .collect(Collectors.toList());
+                .collect(toList());
     }
 
     /**
@@ -174,15 +174,15 @@ public class CarsService {
     public Map<String, List<Car>> componentWithCarsList() {
         return cars
                 .stream()
-                .flatMap(car -> CarUtils.toComponents.apply(car).stream())
+                .flatMap(car -> toComponents.apply(car).stream())
                 .distinct()
-                .collect(Collectors.toMap(
+                .collect(toMap(
                         Function.identity(),
                         component -> cars
                                 .stream()
                                 .filter(car -> car
                                         .hasComponent(component))
-                                .collect(Collectors.toList())
+                                .collect(toList())
                 ));
     }
 
@@ -204,9 +204,66 @@ public class CarsService {
         return cars
                 .stream()
                 .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
-                .collect(Collectors.toList())
-                .stream()
-                .sorted(CarUtils.compareByModel)
-                .collect(Collectors.toList());
+                .collect(toList());
+    }
+
+    public List<Car> priceRangeFilter(BigDecimal fromPrice, BigDecimal toPrice, List<Car> carsCopy) {
+        if (fromPrice != null && toPrice != null && fromPrice.compareTo(toPrice) > 0) {
+            return carsCopy
+                    .stream()
+                    .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
+                    .collect(toList());
+        }
+        return carsCopy;
+    }
+
+    private List<Car> filterByModel(String model, List<Car> carsCopy) {
+        if (model != null && model.length() != 0) {
+            return carsCopy
+                    .stream()
+                    .filter(car -> car.equalsModel(model))
+                    .collect(toList());
+        }
+        return carsCopy;
+    }
+
+    private List<Car> filterByColor(Color color, List<Car> carsCopy) {
+        if (color != null && String.valueOf(color).length() != 0) {
+            return carsCopy
+                    .stream()
+                    .filter(car -> car.equalsColor(color))
+                    .collect(toList());
+        }
+        return carsCopy;
+    }
+
+    private List<Car> inMileageRange(int minMileage, int maxMileage, List<Car> carsCopy) {
+        if (Integer.toString(minMileage).length() != 0 && Integer.toString(maxMileage).length() != 0) {
+            return carsCopy
+                    .stream()
+                    .filter(car -> car.inMileageRange(minMileage, maxMileage))
+                    .collect(toList());
+        }
+        return carsCopy;
+    }
+
+    private List<Car> filterByComponents(List<String> components, List<Car> carsCopy) {
+        if (components != null && !components.isEmpty()) {
+            return carsCopy
+                    .stream()
+                    .filter(car -> car.containsComponents(components))
+                    .collect(toList());
+        }
+        return carsCopy;
+    }
+
+    public List<Car> filterCarsByManyParameters(String model, BigDecimal minPrice, BigDecimal maxPrice, Color color,
+                                                int minMileage, int maxMileage, List<String> components) {
+        var carsCopy = cars;
+        carsCopy = filterByModel(model, carsCopy);
+        carsCopy = priceRangeFilter(minPrice, maxPrice, carsCopy);
+        carsCopy = filterByColor(color, carsCopy);
+        carsCopy = inMileageRange(minMileage, maxMileage, carsCopy);
+        return filterByComponents(components, carsCopy);
     }
 }

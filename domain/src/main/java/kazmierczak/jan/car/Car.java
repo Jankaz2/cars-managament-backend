@@ -23,18 +23,16 @@ public class Car {
     List<String> components;
 
     /**
-     *
      * @param mileage - mileage we chec whether car got greater mileage than this
      * @return true if mileage from argument is less than
-     *         mileage of car we are checking otherwise return
-     *         false
+     * mileage of car we are checking otherwise return
+     * false
      */
     public boolean hasMileageGreaterThan(int mileage) {
         return this.mileage > mileage;
     }
 
     /**
-     *
      * @param price we will compare to
      * @return true if car we are checking has greater or equal price
      * to price from param, otherwise return false
@@ -44,7 +42,6 @@ public class Car {
     }
 
     /**
-     *
      * @return car object with sorted components list
      */
     public Car withSortedComponents() {
@@ -62,24 +59,38 @@ public class Car {
     }
 
     /**
-     *
      * @param component - component we check which cars got this
      * @return return true if components list of car we are checking
-     *         contains component param, otherwise return false
+     * contains component param, otherwise return false
      */
     public boolean hasComponent(String component) {
         return components.contains(component);
     }
 
     /**
-     *
      * @param fromPrice - minimum price from range
-     * @param toPrice - maximum price from range
+     * @param toPrice   - maximum price from range
      * @return true if price of car we are checking is between fromPrice param
-     *          and toPrice param
+     * and toPrice param
      */
     public boolean hasPriceInRange(BigDecimal fromPrice, BigDecimal toPrice) {
         return price.compareTo(fromPrice) >= 0 && price.compareTo(toPrice) <= 0;
+    }
+
+    public boolean equalsModel(String modelToCompare) {
+        return model.equals(modelToCompare);
+    }
+
+    public boolean equalsColor(Color colorToCompare) {
+        return color.equals(colorToCompare);
+    }
+
+    public boolean inMileageRange(int min, int max) {
+        return mileage >= min && mileage <= max;
+    }
+
+    public boolean containsComponents(List<String> componentsToCompare) {
+        return components.containsAll(componentsToCompare);
     }
 
     @Override
