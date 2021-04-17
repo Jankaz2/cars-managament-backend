@@ -15,8 +15,6 @@
     </modules>
     <packaging>pom</packaging>
 
-    <name>cars-management</name>
-
     <properties>
         <revision>1.0</revision>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -133,7 +131,7 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <compilerArgs>
-                            <compileArg>--enable-preview</compileArg>
+                            <compilerArg>--enable-preview</compilerArg>
                         </compilerArgs>
                     </configuration>
                 </plugin>
@@ -144,7 +142,7 @@
                     <version>${maven.enforcer.plugin.version}</version>
                     <executions>
                         <execution>
-                            <id>enforce-env-requirement</id>
+                            <id>enforce-env-requirements</id>
                             <goals>
                                 <goal>enforce</goal>
                             </goals>
