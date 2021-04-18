@@ -48,9 +48,6 @@ public class Routing {
                             var maxMileage = request.params(":maxMileage");
                             var components = request.params(":components");
                             var componentsList = Arrays.stream(components.split("[,]")).collect(Collectors.toList());
-                            if (model == null || model.length() == 0) {
-                                model = "AUDI";
-                            }
                             return carsService.filterCarsByManyParameters(model, new BigDecimal(minPrice), new BigDecimal(maxPrice),
                                     Color.valueOf(color), Integer.parseInt(minMileage), Integer.parseInt(maxMileage), componentsList);
                         }, new JsonTransformer()
