@@ -207,63 +207,65 @@ public class CarsService {
                 .collect(toList());
     }
 
-    public List<Car> priceRangeFilter(BigDecimal fromPrice, BigDecimal toPrice, List<Car> carsCopy) {
+    public List<Car> priceRangeFilter(BigDecimal fromPrice, BigDecimal toPrice) {
         if (fromPrice != null && toPrice != null && fromPrice.compareTo(toPrice) > 0) {
-            return carsCopy
+            return cars
                     .stream()
                     .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
                     .collect(toList());
         }
-        return carsCopy;
+        return cars;
     }
 
-    private List<Car> filterByModel(String model, List<Car> carsCopy) {
+    private List<Car> filterByModel(String model) {
         if (model != null && model.length() != 0) {
-            return carsCopy
+            return cars
                     .stream()
                     .filter(car -> car.equalsModel(model))
                     .collect(toList());
         }
-        return carsCopy;
+        return cars;
     }
 
-    private List<Car> filterByColor(Color color, List<Car> carsCopy) {
+    private List<Car> filterByColor(Color color) {
         if (color != null && String.valueOf(color).length() != 0) {
-            return carsCopy
+            return cars
                     .stream()
                     .filter(car -> car.equalsColor(color))
                     .collect(toList());
         }
-        return carsCopy;
+        return cars;
     }
 
-    private List<Car> inMileageRange(int minMileage, int maxMileage, List<Car> carsCopy) {
+    private List<Car> inMileageRange(int minMileage, int maxMileage) {
         if (Integer.toString(minMileage).length() != 0 && Integer.toString(maxMileage).length() != 0) {
-            return carsCopy
+            return cars
                     .stream()
                     .filter(car -> car.inMileageRange(minMileage, maxMileage))
                     .collect(toList());
         }
-        return carsCopy;
+        return cars;
     }
 
-    private List<Car> filterByComponents(List<String> components, List<Car> carsCopy) {
+    private List<Car> filterByComponents(List<String> components) {
         if (components != null && !components.isEmpty()) {
-            return carsCopy
+            return cars
                     .stream()
                     .filter(car -> car.containsComponents(components))
                     .collect(toList());
         }
-        return carsCopy;
+        return cars;
     }
 
     public List<Car> filterCarsByManyParameters(String model, BigDecimal minPrice, BigDecimal maxPrice, Color color,
                                                 int minMileage, int maxMileage, List<String> components) {
-        var carsCopy = cars;
-        carsCopy = filterByModel(model, carsCopy);
-        carsCopy = priceRangeFilter(minPrice, maxPrice, carsCopy);
-        carsCopy = filterByColor(color, carsCopy);
-        carsCopy = inMileageRange(minMileage, maxMileage, carsCopy);
-        return filterByComponents(components, carsCopy);
+        return cars
+                .stream()
+                .filter(filterByModel(model)::contains)
+                .filter(priceRangeFilter(minPrice, maxPrice)::contains)
+                .filter(filterByColor(color)::contains)
+                .filter(inMileageRange(minMileage, maxMileage)::contains)
+                .filter(filterByComponents(components)::contains)
+                .collect(toList());
     }
 }
