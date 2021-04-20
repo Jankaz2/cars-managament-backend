@@ -55,7 +55,7 @@ public class CarsInPraceRangeTest {
     @DisplayName("when values are not null")
     public void test4() {
         var expectedResult = List.of(
-                "AUDI", "FORD"
+                "FORD", "AUDI"
         );
 
         var result = carsService.inPriceRange(new BigDecimal(160000), new BigDecimal(200000))
