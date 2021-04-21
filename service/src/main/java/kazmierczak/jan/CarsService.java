@@ -50,7 +50,7 @@ public class CarsService {
 
     /**
      * @param sortItem   describes criteria of sort
-     * @param descending if true sortng in ascending order otherwise descending order
+     * @param descending if true sorting in ascending order otherwise descending order
      * @return sorted collection of cars
      */
     public List<Car> sort(SortItem sortItem, boolean descending) {
@@ -218,7 +218,7 @@ public class CarsService {
     }
 
     private List<Car> filterByModel(String model) {
-        if (model != null && model.length() != 0) {
+        if (model != null && !model.equals("default-model")) {
             return cars
                     .stream()
                     .filter(car -> car.equalsModel(model))
@@ -227,18 +227,18 @@ public class CarsService {
         return cars;
     }
 
-    private List<Car> filterByColor(Color color) {
-        if (color != null && String.valueOf(color).length() != 0) {
+    private List<Car> filterByColor(String color) {
+        if (color != null && !(color).equals("default-color")) {
             return cars
                     .stream()
-                    .filter(car -> car.equalsColor(color))
+                    .filter(car -> car.equalsColor(Color.valueOf(color)))
                     .collect(toList());
         }
         return cars;
     }
 
     private List<Car> inMileageRange(int minMileage, int maxMileage) {
-        if (Integer.toString(minMileage).length() != 0 && Integer.toString(maxMileage).length() != 0) {
+        if (!Integer.toString(minMileage).equals("###") && !Integer.toString(maxMileage).equals("###")) {
             return cars
                     .stream()
                     .filter(car -> car.inMileageRange(minMileage, maxMileage))
@@ -257,7 +257,7 @@ public class CarsService {
         return cars;
     }
 
-    public List<Car> filterCarsByManyParameters(String model, BigDecimal minPrice, BigDecimal maxPrice, Color color,
+    public List<Car> filterCarsByManyParameters(String model, BigDecimal minPrice, BigDecimal maxPrice, String color,
                                                 int minMileage, int maxMileage, List<String> components) {
         return cars
                 .stream()

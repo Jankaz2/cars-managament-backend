@@ -11,6 +11,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import static spark.Spark.*;
@@ -47,9 +49,12 @@ public class Routing {
                             var minMileage = request.params(":minMileage");
                             var maxMileage = request.params(":maxMileage");
                             var components = request.params(":components");
-                            var componentsList = Arrays.stream(components.split("[,]")).collect(Collectors.toList());
+                            List<String> componentsList = new LinkedList<>();
+                            if(!components.equals("component,component")){
+                                componentsList = Arrays.stream(components.split("[,]")).collect(Collectors.toList());
+                            }
                             return carsService.filterCarsByManyParameters(model, new BigDecimal(minPrice), new BigDecimal(maxPrice),
-                                    Color.valueOf(color), Integer.parseInt(minMileage), Integer.parseInt(maxMileage), componentsList);
+                                    color, Integer.parseInt(minMileage), Integer.parseInt(maxMileage), componentsList);
                         }, new JsonTransformer()
                 );
             });
