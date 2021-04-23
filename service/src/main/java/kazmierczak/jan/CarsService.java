@@ -208,7 +208,7 @@ public class CarsService {
     }
 
     public List<Car> priceRangeFilter(BigDecimal fromPrice, BigDecimal toPrice) {
-        if (fromPrice != null && toPrice != null && fromPrice.compareTo(toPrice) > 0) {
+        if (fromPrice != null && toPrice != null && fromPrice.compareTo(toPrice) < 0) {
             return cars
                     .stream()
                     .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
@@ -238,7 +238,7 @@ public class CarsService {
     }
 
     private List<Car> inMileageRange(int minMileage, int maxMileage) {
-        if (!Integer.toString(minMileage).equals("###") && !Integer.toString(maxMileage).equals("###")) {
+        if (minMileage < maxMileage) {
             return cars
                     .stream()
                     .filter(car -> car.inMileageRange(minMileage, maxMileage))

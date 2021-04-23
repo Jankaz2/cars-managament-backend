@@ -50,7 +50,7 @@ public class Routing {
                             var maxMileage = request.params(":maxMileage");
                             var components = request.params(":components");
                             List<String> componentsList = new LinkedList<>();
-                            if(!components.equals("component,component")){
+                            if(!components.equals("component,component2")){
                                 componentsList = Arrays.stream(components.split("[,]")).collect(Collectors.toList());
                             }
                             return carsService.filterCarsByManyParameters(model, new BigDecimal(minPrice), new BigDecimal(maxPrice),
