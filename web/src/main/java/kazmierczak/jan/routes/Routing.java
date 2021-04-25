@@ -4,7 +4,6 @@ import kazmierczak.jan.CarsService;
 import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.filter.CorsFilter;
 import kazmierczak.jan.transformer.JsonTransformer;
-import kazmierczak.jan.types.Color;
 import kazmierczak.jan.types.SortItem;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
@@ -75,15 +74,6 @@ public class Routing {
                         (request, response) -> {
                             response.header("Content-Type", "application/json;charset=utf-8");
                             return carsService.theMostExpensiveCar();
-                        }, new JsonTransformer()
-                );
-
-                get("/:min/:max",
-                        (request, response) -> {
-                            response.header("Content-Type", "application/json;charset=utf-8");
-                            var min = request.params(":min");
-                            var max = request.params(":max");
-                            return carsService.inPriceRange(new BigDecimal(min), new BigDecimal(max));
                         }, new JsonTransformer()
                 );
             });

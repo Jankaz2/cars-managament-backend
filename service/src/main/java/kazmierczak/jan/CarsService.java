@@ -191,24 +191,12 @@ public class CarsService {
      * @param toPrice   represents the maximum value from range we are looking for cars
      * @return list of cars which price is in range between fromPrice and toPrice
      */
-    public List<Car> inPriceRange(BigDecimal fromPrice, BigDecimal toPrice) {
-        if (fromPrice == null) {
-            throw new CarsServiceException("From price is null");
-        }
-        if (toPrice == null) {
-            throw new CarsServiceException("To price is null");
-        }
+    public List<Car> filterByPriceRange(BigDecimal fromPrice, BigDecimal toPrice) {
         if (fromPrice.compareTo(toPrice) > 0) {
-            throw new CarsServiceException("Incorrect price range");
+            throw new CarsServiceException("Minimum price cannot be greater than maximum price");
         }
-        return cars
-                .stream()
-                .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
-                .collect(toList());
-    }
 
-    public List<Car> priceRangeFilter(BigDecimal fromPrice, BigDecimal toPrice) {
-        if (fromPrice != null && toPrice != null && fromPrice.compareTo(toPrice) < 0) {
+        if (fromPrice != null && toPrice != null) {
             return cars
                     .stream()
                     .filter(car -> car.hasPriceInRange(fromPrice, toPrice))
@@ -262,7 +250,7 @@ public class CarsService {
         return cars
                 .stream()
                 .filter(filterByModel(model)::contains)
-                .filter(priceRangeFilter(minPrice, maxPrice)::contains)
+                .filter(filterByPriceRange(minPrice, maxPrice)::contains)
                 .filter(filterByColor(color)::contains)
                 .filter(inMileageRange(minMileage, maxMileage)::contains)
                 .filter(filterByComponents(components)::contains)

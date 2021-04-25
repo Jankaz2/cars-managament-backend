@@ -27,38 +27,21 @@ public class CarsInPraceRangeTest {
         carsService = context.getBean("carsService", CarsService.class);
     }
 
-    @Test
-    @DisplayName("when minimum value - fromPrice - is null")
-    public void test1() {
-        assertThatThrownBy(() -> carsService.inPriceRange(null, new BigDecimal(1200)))
-                .isInstanceOf(CarsServiceException.class)
-                .hasMessage("From price is null");
-    }
-
-    @Test
-    @DisplayName("when maximum value - toPrice - is null")
-    public void test2() {
-        assertThatThrownBy(() -> carsService.inPriceRange(new BigDecimal(1200), null))
-                .isInstanceOf(CarsServiceException.class)
-                .hasMessage("To price is null");
-    }
-
-    @Test
     @DisplayName("when minimum value is greater than maximum value")
-    public void test3() {
-        assertThatThrownBy(() -> carsService.inPriceRange(new BigDecimal(1200), new BigDecimal(1)))
+    public void test1() {
+        assertThatThrownBy(() -> carsService.filterByPriceRange(new BigDecimal(1200), new BigDecimal(1)))
                 .isInstanceOf(CarsServiceException.class)
-                .hasMessage("Incorrect price range");
+                .hasMessage("Minimum price cannot be greater than maximum price");
     }
 
     @Test
     @DisplayName("when values are not null")
-    public void test4() {
+    public void test2() {
         var expectedResult = List.of(
                 "FORD", "AUDI"
         );
 
-        var result = carsService.inPriceRange(new BigDecimal(160000), new BigDecimal(200000))
+        var result = carsService.filterByPriceRange(new BigDecimal(160000), new BigDecimal(200000))
                 .stream()
                 .map(CarUtils.toModel)
                 .collect(Collectors.toList());
