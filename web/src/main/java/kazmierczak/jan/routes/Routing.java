@@ -79,7 +79,7 @@ public class Routing {
             });
 
             path("/model", () -> {
-                get("/most_expensive",
+                get("/most-expensive",
                         (request, response) -> {
                             response.header("Content-Type", "application/json;charset=utf-8");
                             return carsService.getModelsWithMostExpensiveCars();
