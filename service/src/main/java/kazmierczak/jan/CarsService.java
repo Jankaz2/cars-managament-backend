@@ -32,13 +32,32 @@ public class CarsService {
      */
     @PostConstruct
     private void init() {
-        cars = new CarJsonConverter(filename)
+        cars = new CarJsonConverter(jarPath() + "/resources/" + filename)
                 .fromJson()
                 .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
                 .stream()
                 .peek(car -> {
                     Validator.validate(new CarValidator(), car);
                 }).collect(toList());
+    }
+
+    /**
+     *
+     * @return jar path
+     */
+    private String jarPath() {
+        try {
+            var path = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
+            var pathElements = path.split("/");
+            var size = pathElements.length;
+            return Arrays
+                    .stream(pathElements)
+                    .limit(size - 1)
+                    .skip(1)
+                    .collect(joining("/"));
+        } catch (Exception e) {
+            throw new CarsServiceException(e.getMessage());
+        }
     }
 
     /**
