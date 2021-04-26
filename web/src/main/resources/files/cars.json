@@ -1,0 +1,92 @@
+[
+  {
+    "model": "FORD",
+    "price": 120000,
+    "color": "RED",
+    "mileage": 150000,
+    "components": [
+      "AIR CONDITIONING",
+      "VOICE SERVICE"
+    ]
+  },
+  {
+    "model": "FORD",
+    "price": 160000,
+    "color": "RED",
+    "mileage": 150000,
+    "components": [
+      "AIR CONDITIONING",
+      "VOICE SERVICE"
+    ]
+  },
+  {
+    "model": "AUDI",
+    "price": 200000,
+    "color": "BLACK",
+    "mileage": 195000,
+    "components": [
+      "NAVIGATION",
+      "AUTOMATIC GEARBOX"
+    ]
+  },
+  {
+    "model": "FIAT",
+    "price": 70000,
+    "color": "BLUE",
+    "mileage": 85000,
+    "components": [
+      "AIR CONDITIONING",
+      "MANUAL GEARBOX"
+    ]
+  },
+  {
+    "model": "AUDI",
+    "price": 85000,
+    "color": "WHITE",
+    "mileage": 185000,
+    "components": [
+      "VOICE SERVICE",
+      "DARK GLASSES"
+    ]
+  },
+  {
+    "model": "PEUGEOT",
+    "price": 50000,
+    "color": "BLACK",
+    "mileage": 20000,
+    "components": [
+      "WARMING SEATS",
+      "AUTOMATIC GEARBOX"
+    ]
+  },
+  {
+    "model": "BMW",
+    "price": 110000,
+    "color": "WHITE",
+    "mileage": 211000,
+    "components": [
+      "AIR CONDITIONING",
+      "WARMING WHEEL"
+    ]
+  },
+  {
+    "model": "MERCEDES",
+    "price": 300000,
+    "color": "RED",
+    "mileage": 45000,
+    "components": [
+      "BLUETOOTH",
+      "WIFI"
+    ]
+  },
+  {
+    "model": "MERCEDES",
+    "price": 300000,
+    "color": "BLACK",
+    "mileage": 48000,
+    "components": [
+      "NAVIGATION",
+      "VOICE SERVICE"
+    ]
+  }
+]
