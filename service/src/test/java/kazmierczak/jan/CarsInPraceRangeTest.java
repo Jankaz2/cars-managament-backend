@@ -27,6 +27,7 @@ public class CarsInPraceRangeTest {
         carsService = context.getBean("carsService", CarsService.class);
     }
 
+    @Test
     @DisplayName("when minimum value is greater than maximum value")
     public void test1() {
         assertThatThrownBy(() -> carsService.filterByPriceRange(new BigDecimal(1200), new BigDecimal(1)))
