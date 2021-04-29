@@ -62,7 +62,7 @@
     </dependencies>
 
     <build>
-        <finalName>cars-management-web</finalName>
+        <finalName>cars-management</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -72,8 +72,11 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <configuration>
-                    <source>15</source>
-                    <target>15</target>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <compilerArgs>
+                        <arg>--enable-preview</arg>
+                    </compilerArgs>
                 </configuration>
             </plugin>
 
