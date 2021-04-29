@@ -29,6 +29,9 @@ public class Routing {
         var corsFilter = new CorsFilter();
         corsFilter.apply();
 
+        /**
+         * this request returns list of all cars
+         */
         path("/cars", () -> {
             get("",
                     (request, response) -> {
@@ -37,6 +40,9 @@ public class Routing {
                     }, new JsonTransformer()
             );
 
+            /**
+             * this request returns list of cars filter by parameters
+             */
             path("/filter", () -> {
                 get("/:model/:minPrice/:maxPrice/:color/:minMileage/:maxMileage/:components",
                         (request, response) -> {
@@ -64,6 +70,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns list of cars sorted by parameter
+             */
             path("/sort", () -> {
                 get("/:item/:order",
                         (request, response) -> {
@@ -75,6 +84,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns the most expensive car
+             */
             path("/price", () -> {
                 get("/max",
                         (request, response) -> {
@@ -84,6 +96,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns map of greatest price for each model
+             */
             path("/model", () -> {
                 get("/most-expensive",
                         (request, response) -> {
@@ -93,6 +108,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns list of cars with mileage greater than mileage from parameter
+             */
             path("/mileage", () -> {
                 get("/:mileage",
                         (request, response) -> {
@@ -103,6 +121,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns list of cars grouped by colors
+             */
             path("/color", () -> {
                 get("/group",
                         (request, response) -> {
@@ -112,6 +133,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns list of cars with sorted components
+             */
             path("/components", () -> {
                 get("/sort",
                         (request, response) -> {
@@ -121,6 +145,9 @@ public class Routing {
                 );
             });
 
+            /**
+             * this request returns statisitcs of our cars list
+             */
             path("/statistics", () -> {
                 get("",
                         (request, response) -> {
