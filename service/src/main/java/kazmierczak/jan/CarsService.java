@@ -159,19 +159,38 @@ public class CarsService {
     }
 
     /**
+     *
+     * @return the greatest mileage of cars collection
+     */
+    public Integer theGreatestMileage() {
+        return cars
+                .stream()
+                .map(toMileage::applyAsInt)
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+    }
+
+    /**
+     *
+     * @return the greatest price of cars
+     */
+    public BigDecimal theGreatestPrice() {
+        return  cars
+                .stream()
+                .map(toPrice)
+                .max(Comparator.naturalOrder())
+                .orElseThrow();
+    }
+
+    /**
      * @return the most expensive car or list of the most
      * expensive cars if there are more than one
      * most expensive cars
      */
     public List<Car> theMostExpensiveCar() {
-        var maxPrice = cars
-                .stream()
-                .map(toPrice)
-                .max(Comparator.naturalOrder())
-                .orElseThrow();
         return cars
                 .stream()
-                .filter(car -> car.hasPriceGreaterOrEqualTo(maxPrice))
+                .filter(car -> car.hasPriceGreaterOrEqualTo(theGreatestPrice()))
                 .collect(toList());
     }
 

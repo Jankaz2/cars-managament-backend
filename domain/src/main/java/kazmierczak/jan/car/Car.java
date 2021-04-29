@@ -77,18 +77,43 @@ public class Car {
         return price.compareTo(fromPrice) >= 0 && price.compareTo(toPrice) <= 0;
     }
 
+    /**
+     *
+     * @param modelToCompare model of car we want to compare
+     * @return true if modelToComare equals model of car,
+     * otherwise return false
+     */
     public boolean equalsModel(String modelToCompare) {
         return model.equals(modelToCompare);
     }
 
+    /**
+     *
+     * @param colorToCompare color of car we want to compare
+     * @return true if colortoCompare equals color of car,
+     * otherwise return false
+     */
     public boolean equalsColor(Color colorToCompare) {
         return color.equals(colorToCompare);
     }
 
+    /**
+     *
+     * @param min minimum value of mileage we want to check
+     * @param max maximum value of mileage we want to check
+     * @return true if the mileage of car we are checking
+     * is between min and max values, otherwise return false
+     */
     public boolean inMileageRange(int min, int max) {
         return mileage >= min && mileage <= max;
     }
 
+    /**
+     *
+     * @param componentsToCompare components we want to compare
+     * @return true if car we are checking contains componentsToCompare,
+     * otherwise return false
+     */
     public boolean containsComponents(List<String> componentsToCompare) {
         return components.containsAll(componentsToCompare);
     }
