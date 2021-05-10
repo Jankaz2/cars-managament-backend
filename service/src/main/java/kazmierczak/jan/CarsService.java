@@ -1,14 +1,14 @@
 package kazmierczak.jan;
 
-import kazmierczak.jan.car.Car;
-import kazmierczak.jan.car.CarValidator;
-import kazmierczak.jan.config.converter.CarJsonConverter;
-import kazmierczak.jan.config.converter.exception.CarsServiceException;
+import kazmierczak.jan.domain.car.Car;
+import kazmierczak.jan.domain.car.CarValidator;
+import kazmierczak.jan.domain.config.converter.CarJsonConverter;
+import kazmierczak.jan.domain.config.exception.CarsServiceException;
 import kazmierczak.jan.types.CarStatistics;
 import kazmierczak.jan.types.Color;
 import kazmierczak.jan.types.SortItem;
 import kazmierczak.jan.types.Statistics;
-import kazmierczak.jan.config.validator.Validator;
+import kazmierczak.jan.domain.config.validator.Validator;
 import org.eclipse.collections.impl.collector.Collectors2;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -18,8 +18,9 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 
+import static java.util.Collections.*;
 import static java.util.stream.Collectors.*;
-import static kazmierczak.jan.car.CarUtils.*;
+import static kazmierczak.jan.domain.car.CarUtils.*;
 
 @Service
 public class CarsService {
@@ -32,20 +33,24 @@ public class CarsService {
      */
     @PostConstruct
     private void init() {
-        cars = new CarJsonConverter(jarPath() + "/resources/" + filename)
+        /*cars = new CarJsonConverter("/" + jarPath() + "/resources/" + filename)
                 .fromJson()
                 .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
                 .stream()
-                .peek(car -> {
-                    Validator.validate(new CarValidator(), car);
-                }).collect(toList());
+                .peek(car -> Validator.validate(new CarValidator(), car))
+                .collect(toList());*/
+        cars = new CarJsonConverter(filename)
+                .fromJson()
+                .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
+                .stream()
+                .peek(car -> Validator.validate(new CarValidator(), car))
+                .collect(toList());
     }
 
     /**
-     *
      * @return jar path
      */
-    private String jarPath() {
+    public String jarPath() {
         try {
             var path = this.getClass().getProtectionDomain().getCodeSource().getLocation().toURI().getPath();
             var pathElements = path.split("/");
@@ -84,7 +89,7 @@ public class CarsService {
         };
 
         if (descending) {
-            Collections.reverse(sortedCars);
+            reverse(sortedCars);
         }
         return sortedCars;
     }
@@ -159,7 +164,6 @@ public class CarsService {
     }
 
     /**
-     *
      * @return the greatest mileage of cars collection
      */
     public Integer theGreatestMileage() {
@@ -171,11 +175,10 @@ public class CarsService {
     }
 
     /**
-     *
      * @return the greatest price of cars
      */
     public BigDecimal theGreatestPrice() {
-        return  cars
+        return cars
                 .stream()
                 .map(toPrice)
                 .max(Comparator.naturalOrder())
