@@ -13,8 +13,6 @@
     <artifactId>domain</artifactId>
 
     <properties>
-        <maven.compiler.source>15</maven.compiler.source>
-        <maven.compiler.target>15</maven.compiler.target>
         <eclipse.collections.api>10.4.0</eclipse.collections.api>
         <eclipse.collections>10.4.0</eclipse.collections>
     </properties>
@@ -79,18 +77,4 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
-
-    <build>
-        <finalName>cars-management-domain</finalName>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>15</source>
-                    <target>15</target>
-                </configuration>
-            </plugin>
-        </plugins>
-    </build>
 </project>

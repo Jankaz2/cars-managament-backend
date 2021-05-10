@@ -1,7 +1,7 @@
 package kazmierczak.jan.routes;
 
 import kazmierczak.jan.CarsService;
-import kazmierczak.jan.config.AppSpringConfig;
+import kazmierczak.jan.domain.config.AppSpringConfig;
 import kazmierczak.jan.filter.CorsFilter;
 import kazmierczak.jan.transformer.JsonTransformer;
 import kazmierczak.jan.types.SortItem;
