@@ -19,6 +19,7 @@ import java.util.*;
 import java.util.function.Function;
 
 import static java.util.Collections.*;
+import static java.util.function.Function.*;
 import static java.util.stream.Collectors.*;
 import static kazmierczak.jan.domain.car.CarUtils.*;
 
@@ -212,7 +213,7 @@ public class CarsService {
                 .flatMap(car -> toComponents.apply(car).stream())
                 .distinct()
                 .collect(toMap(
-                        Function.identity(),
+                        identity(),
                         component -> cars
                                 .stream()
                                 .filter(car -> car
