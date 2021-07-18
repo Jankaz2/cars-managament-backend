@@ -33,12 +33,6 @@ public class CarsService {
      */
     @PostConstruct
     private void init() {
-        /*cars = new CarJsonConverter("/" + jarPath() + "/resources/" + filename)
-                .fromJson()
-                .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
-                .stream()
-                .peek(car -> Validator.validate(new CarValidator(), car))
-                .collect(toList());*/
         cars = new CarJsonConverter(filename)
                 .fromJson()
                 .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
