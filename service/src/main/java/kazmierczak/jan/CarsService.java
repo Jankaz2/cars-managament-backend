@@ -18,8 +18,6 @@ import java.math.BigDecimal;
 import java.util.*;
 import java.util.function.Function;
 
-import static java.util.Collections.*;
-import static java.util.function.Function.*;
 import static java.util.stream.Collectors.*;
 import static kazmierczak.jan.domain.car.CarUtils.*;
 
@@ -34,7 +32,7 @@ public class CarsService {
      */
     @PostConstruct
     private void init() {
-        cars = new CarJsonConverter(filename)
+        cars = new CarJsonConverter("/" + jarPath() + "/resources/" + filename)
                 .fromJson()
                 .orElseThrow(() -> new CarsServiceException("Cannot read data from file " + filename))
                 .stream()
@@ -84,7 +82,7 @@ public class CarsService {
         };
 
         if (descending) {
-            reverse(sortedCars);
+            Collections.reverse(sortedCars);
         }
         return sortedCars;
     }
@@ -213,7 +211,7 @@ public class CarsService {
                 .flatMap(car -> toComponents.apply(car).stream())
                 .distinct()
                 .collect(toMap(
-                        identity(),
+                        Function.identity(),
                         component -> cars
                                 .stream()
                                 .filter(car -> car

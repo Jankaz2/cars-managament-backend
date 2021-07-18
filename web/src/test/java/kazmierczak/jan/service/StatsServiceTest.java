@@ -2,7 +2,7 @@ package kazmierczak.jan.service;
 
 
 import kazmierczak.jan.CarsService;
-import kazmierczak.jan.config.AppSpringConfig;
+import kazmierczak.jan.domain.config.AppSpringConfig;
 import kazmierczak.jan.types.CarStatistics;
 import kazmierczak.jan.types.Statistics;
 import org.eclipse.collections.impl.collector.Collectors2;

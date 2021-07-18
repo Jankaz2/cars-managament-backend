@@ -1,4 +1,4 @@
-package kazmierczak.jan.config;
+package kazmierczak.jan.domain.config;
 
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;

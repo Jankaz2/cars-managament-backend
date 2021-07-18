@@ -1,8 +1,8 @@
 package kazmierczak.jan.service;
 
 import kazmierczak.jan.CarsService;
-import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.domain.car.Car;
+import kazmierczak.jan.domain.config.AppSpringConfig;
 import kazmierczak.jan.types.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

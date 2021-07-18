@@ -16,3 +16,16 @@
  
 * Finish security module
 
+---------------------------------------
+
+## **Requests documentation**
+
+https://documenter.getpostman.com/view/13986101/Tz5v2vM5
+
+---------------------------------------
+
+## **Website page**
+
+http://ec2-18-196-235-164.eu-central-1.compute.amazonaws.com/
+
+the AWS EC2 instance is off so this link does not work now

@@ -1,8 +1,8 @@
 package kazmierczak.jan.service;
 
 import kazmierczak.jan.CarsService;
-import kazmierczak.jan.config.AppSpringConfig;
 import kazmierczak.jan.domain.car.CarUtils;
+import kazmierczak.jan.domain.config.AppSpringConfig;
 import kazmierczak.jan.domain.config.exception.CarsServiceException;
 import kazmierczak.jan.types.SortItem;
 import org.junit.jupiter.api.BeforeEach;
